@@ -16,9 +16,10 @@
                             <th scope="col">#</th>
                             <th scope="col">Titolo  </th>
                             <th scope="col">Slug</th>
-                            <th scope="col">Visualizza</th>
-                            <th scope="col">Modifica</th>
-                            <th scope="col">Elimina</th>
+                            <th scope="col">Categoria</th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
                           </tr>
                         </thead>
                         <tbody>
@@ -27,7 +28,9 @@
                             <th scope="row">{{$post->id}}</th>
                             <td>{{$post->title}}</td>
                             <td>{{$post->slug}}</td>
+                            <td>@if ($post->category){{$post->category->name}}@endif</td>
                             <td><a href="{{route("posts.show", $post->id)}}"><button type="button" class="btn btn-primary">Vai</button></a></td>
+                            
                             <td><a href="{{route("posts.edit", $post->id)}}"><button type="button" class="btn btn-warning">Modifica</button></a></td>
                             <td><form action="{{route("posts.destroy", $post->id)}}" method="POST">
                                 @csrf
