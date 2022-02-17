@@ -15,12 +15,14 @@
                                                         
                         @endif
                     </div>
-                    @if ($post->category)
-                        <div class="mb-3">
-                            <strong>Categoria:</strong>
-                            <span class="badge badge-info">{{$post->category->name}}</span>
-                        </div>
-                    @endif
+                    <div class="mb-3">
+                        <strong>Categoria:</strong>
+                                @if ($post->category)
+                                    <span class="badge badge-info">{{$post->category->name}}</span>
+                                @else
+                                    <span class="badge badge-pill badge-secondary">Nessuna categoria</span>  
+                                @endif
+                    </div>                               
                     
                     <p>{{$post->content}}</p>
                 </div>

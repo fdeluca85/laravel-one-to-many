@@ -28,7 +28,12 @@
                             <th scope="row">{{$post->id}}</th>
                             <td>{{$post->title}}</td>
                             <td>{{$post->slug}}</td>
-                            <td>@if ($post->category){{$post->category->name}}@endif</td>
+                            <td>
+                              @if ($post->category)
+                              <span class="badge badge-pill badge-info">{{$post->category->name}}</span>                           
+                                @else
+                                <span class="badge badge-pill badge-secondary">Nessuna categoria</span>                                
+                                @endif</td>
                             <td><a href="{{route("posts.show", $post->id)}}"><button type="button" class="btn btn-primary">Vai</button></a></td>
                             
                             <td><a href="{{route("posts.edit", $post->id)}}"><button type="button" class="btn btn-warning">Modifica</button></a></td>
