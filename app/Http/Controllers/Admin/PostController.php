@@ -96,7 +96,9 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        return view("admin.posts.edit", compact("post"));
+        $categories = Category::all();
+
+        return view("admin.posts.edit", compact("post", "categories"));
     }
 
     /**
@@ -132,6 +134,7 @@ class PostController extends Controller
         }
 
         $post->content = $data["content"];
+        $post->category_id = $data["category_id"];
 
         if (isset($data["published"])) {
             $post->published = true;
