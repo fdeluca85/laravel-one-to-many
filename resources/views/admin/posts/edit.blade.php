@@ -1,0 +1,44 @@
+@extends('layouts.app')
+
+@section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header"><h2>Modifica post: {{$post->title}}</h2></div>
+                <div class="card-body">
+                    <form action="{{route("posts.update", $post->id)}}" method="POST">
+                        @csrf
+                        @method("PUT")
+                        <div class="form-group">
+                          <label for="title">Titolo</label>
+                          <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" placeholder="Inserisci il titolo" value="{{old('title') ? old('title') : $post->title}}">
+                            @error('title')
+                                <div class="alert alert-danger mt-2">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="content">Testo</label>
+                            <textarea class="form-control @error('content') is-invalid @enderror" id="content" name="content" placeholder="Inserisci il contenuto del post" rows="5">{{old('content') ? old('content') : $post->content}}</textarea>
+                            @error('content')
+                            <div class="alert alert-danger mt-2">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group form-check">
+                            @php
+                                $published = old('published') ? old('published') : $post->published;
+                            @endphp
+                            <input class="form-check-input @error('published') is-invalid @enderror" type="checkbox" id="published" name="published" {{$published ? 'checked' : ''}}>                            
+                            <label class="form-check-label" for="published">Pubblica</label>
+                            @error('published')
+                                <div class="alert alert-danger mt-2">{{ $message }}</div>
+                            @enderror                           
+                        </div>
+                        <button type="submit" class="btn btn-primary">Modifica</button>
+                      </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
