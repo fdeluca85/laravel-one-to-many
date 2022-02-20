@@ -17,9 +17,19 @@
                     </div>                               
                     <div class="mb-3">
                         Slug: {{$category->slug}}
-
                     </div>
-                    
+                    @if (count($category->posts) >0)
+                        <div class="mb-3">
+                            <h3>Lista posti associati</h3>
+                            <ul>
+                                @foreach ($category->posts as $post)
+                                    <li>
+                                        {{$post->title}}
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
