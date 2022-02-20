@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-header"><h2>Modifica post: {{$post->title}}</h2></div>
                 <div class="card-body">
-                    <form action="{{route("posts.update", $post->id)}}" method="POST">
+                    <form action="{{route("posts.update", $post->id)}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method("PUT")
                         <div class="form-group">
@@ -36,6 +36,18 @@
                             <div class="alert alert-danger mt-2">{{ $message }}</div>
                             @enderror
                         </div>
+                        @if ($post->image)
+                        <img class="mb-2" width="100" src="{{asset("storage/{$post->image}")}}" alt=""> 
+                        @endif
+                        <div class="custom-file mb-2 ">
+                            <input type="file" class="custom-file-input @error('image') is-invalid @enderror" id="image" name="image">
+                            <label class="custom-file-label" for="customFile">Aggiungi immagine</label>
+                            @error('image')
+                            <div class="alert alert-danger mt-2">{{ $message }}</div>
+                            @enderror
+                          </div>
+
+
                         <div class="form-group form-check">
                             @php
                                 $published = old('published') ? old('published') : $post->published;

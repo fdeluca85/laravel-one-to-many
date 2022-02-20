@@ -24,6 +24,9 @@
                                 @endif
                     </div>                               
                     
+                    @if ($post->image)
+                    <img width="500" src="{{asset("storage/{$post->image}")}}" alt="{{$post->title}}"> 
+                    @endif
                     <p>{{$post->content}}</p>
                 </div>
             </div>

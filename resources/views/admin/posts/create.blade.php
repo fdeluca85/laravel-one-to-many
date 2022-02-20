@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-header"><h2>Nuovo post</h2></div>
                 <div class="card-body">
-                    <form action="{{route("posts.store")}}" method="POST">
+                    <form action="{{route("posts.store")}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                           <label for="title">Titolo</label>
@@ -35,6 +35,10 @@
                             <div class="alert alert-danger mt-2">{{ $message }}</div>
                             @enderror
                         </div>
+                        <div class="custom-file mb-2">
+                            <input type="file" class="custom-file-input" id="image" name="image">
+                            <label class="custom-file-label" for="customFile">Aggiungi immagine</label>
+                          </div>
                         <div class="form-group form-check">
                             <input class="form-check-input @error('published') is-invalid @enderror" type="checkbox" id="published" name="published" {{old('published') ? 'checked' : ''}}>                            
                             <label class="form-check-label" for="published">Pubblica</label>
@@ -42,6 +46,7 @@
                                 <div class="alert alert-danger mt-2">{{ $message }}</div>
                             @enderror                           
                         </div>
+                        
                         <button type="submit" class="btn btn-primary">Crea</button>
                       </form>
                 </div>

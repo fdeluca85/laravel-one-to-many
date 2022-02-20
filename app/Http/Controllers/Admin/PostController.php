@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Category;
 use App\Post;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -49,6 +50,7 @@ class PostController extends Controller
             "content" => "required",
             "published" => "sometimes|accepted",
             "categoy_id" => "nullable|exists:categories,id",
+            "image" => "nullable|mimes:jpg,jpeg,png|max:2048",
         ]);
         //creazione post
         $data = $request->all();
@@ -71,6 +73,12 @@ class PostController extends Controller
 
 
         $newPost->slug = $slug;
+
+        if (isset($data['image'])) {
+
+            $path_image = Storage::put("uploads", $data['image']);
+            $newPost->image = $path_image;
+        }
 
         $newPost->save();
         //redirect al post
@@ -115,6 +123,8 @@ class PostController extends Controller
             "title" => "required|string|max:100",
             "content" => "required",
             "published" => "sometimes|accepted",
+            "categoy_id" => "nullable|exists:categories,id",
+            "image" => "nullable|mimes:jpg,jpeg,png|max:2048",
         ]);
 
         //aggiorno i dati
@@ -141,6 +151,16 @@ class PostController extends Controller
         } else {
             $post->published = false;
         }
+
+
+        if (isset($data['image'])) {
+
+            Storage::delete(($post->image));
+
+            $path_image = Storage::put("uploads", $data['image']);
+            $post->image = $path_image;
+        }
+
         $post->save();
 
         return redirect()->route("posts.show", $post->id);
