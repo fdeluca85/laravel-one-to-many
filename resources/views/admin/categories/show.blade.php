@@ -5,26 +5,21 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header"><h2>{{$post->title}}</h2></div>
+                <div class="card-header"><h2>{{$category->name}}</h2></div>
                 <div class="card-body">
-                    <div class="mb-2"><strong>Stato:</strong> 
-                        @if ($post->published)
-                        <span class="badge badge-success">Pubblicato</span>
-                        @else
-                        <span class="badge badge-secondary">Bozza</span>
-                                                        
-                        @endif
-                    </div>
                     <div class="mb-3">
-                        <strong>Categoria:</strong>
-                                @if ($post->category)
-                                    <span class="badge badge-info">{{$post->category->name}}</span>
-                                @else
-                                    <span class="badge badge-pill badge-secondary">Nessuna categoria</span>  
-                                @endif
+                        <a href="{{route("categories.edit", $category->id)}}"><button type="button" class="btn btn-warning">Modifica</button></a>
+                        <form action="{{route("categories.destroy", $category->id)}}" method="POST">
+                            @csrf
+                            @method("DELETE")
+                            <button type="submit" class="btn btn-danger">Elimina</button>
+                        </form>
                     </div>                               
+                    <div class="mb-3">
+                        Slug: {{$category->slug}}
+
+                    </div>
                     
-                    <p>{{$post->content}}</p>
                 </div>
             </div>
         </div>
